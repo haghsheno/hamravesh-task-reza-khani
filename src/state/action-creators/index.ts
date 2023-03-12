@@ -55,13 +55,15 @@ export const deleteColumn = (column: TaskColumn) => {
     };
 };
 
-export const createNewTask = (title: string, columnId: string) => {
+export const createNewTask = (title: string, columnId: string, type: 'easy' | 'hard', desc?: string) => {
     return (dispatch: Dispatch<Action>, getState: () => RootState) => {
         dispatch({
             type: TaskActionType.CREATE_TASK,
             payload: {
                 title,
                 columnId,
+                type,
+                desc
             },
         });
 

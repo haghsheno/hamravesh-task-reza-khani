@@ -5,6 +5,8 @@ export interface CreateTaskAction {
     payload: {
         title: string;
         columnId: string;
+        type: 'easy' | 'hard';
+        desc?: string;
     };
 }
 
