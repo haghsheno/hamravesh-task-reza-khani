@@ -3,6 +3,7 @@ import { TaskActionType, TaskColumnActionType } from '../action-types';
 export interface CreateTaskAction {
     type: TaskActionType.CREATE_TASK;
     payload: {
+        id?:string;
         title: string;
         columnId: string;
         type: 'easy' | 'hard';
@@ -49,6 +50,7 @@ export interface EditTaskColumnAction {
 export interface CreateColumnTaskAction {
     type: TaskColumnActionType.CREATE_COLUMN;
     payload: {
+        id?: string;
         title: string;
     };
 }

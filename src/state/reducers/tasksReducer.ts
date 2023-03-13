@@ -22,7 +22,7 @@ const reducer = produce((state: TasksState = initialState, action: Action) => {
     switch (action.type) {
         case TaskActionType.CREATE_TASK:
             const newTask: Task = {
-                id: randomId(),
+                id: action.payload.id || randomId(),
                 title: action.payload.title,
                 columnId: action.payload.columnId,
                 type: action.payload.type,

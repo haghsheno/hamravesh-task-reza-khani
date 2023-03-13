@@ -2,11 +2,10 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import reportWebVitals from "./reportWebVitals";
-import { store, persistor } from './state';
+import { store, persistor } from "./state";
 import { Spin } from "antd";
 import { PersistGate } from "redux-persist/integration/react";
-import Board from './components/board';
-
+import Board from "./components/board";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
@@ -14,9 +13,9 @@ const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-       <PersistGate loading={<Spin  />} persistor={persistor}>
-                <Board />
-            </PersistGate>
+      <PersistGate loading={<Spin />} persistor={persistor}>
+        <Board />
+      </PersistGate>
     </Provider>
   </React.StrictMode>
 );

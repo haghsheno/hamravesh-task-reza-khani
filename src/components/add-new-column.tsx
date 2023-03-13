@@ -21,7 +21,7 @@ const AddNewColumn: React.FC = () => {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
-      <Button onClick={createNewColumn}>Add Column</Button>
+      <Button style={{ marginTop:'0.5rem'}} onClick={createNewColumn}>Add Column</Button>
     </div>
   );
 };

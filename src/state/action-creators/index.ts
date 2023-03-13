@@ -13,10 +13,11 @@ import {
 } from '../actions';
 import { RootState } from '../reducers';
 
-export const createColumn = (title: string): CreateColumnTaskAction => {
+export const createColumn = ( title: string,  id?:string) : CreateColumnTaskAction => {
     return {
         type: TaskColumnActionType.CREATE_COLUMN,
         payload: {
+            id,
             title,
         },
     };
