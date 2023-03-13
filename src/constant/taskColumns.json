@@ -1,0 +1,20 @@
+{
+    "wbl": {
+        "id": "wbl",
+        "title": "Todo",
+        "taskIds": [
+            "lt5",
+            "5va"
+        ]
+    },
+    "ekc": {
+        "id": "ekc",
+        "title": "In Progress",
+        "taskIds": []
+    },
+    "ftv": {
+        "id": "ftv",
+        "title": "Done",
+        "taskIds": []
+    }
+}
