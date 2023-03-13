@@ -8,6 +8,7 @@ export interface CreateTaskAction {
         columnId: string;
         type: 'easy' | 'hard';
         desc?: string;
+        isImportant: boolean;
     };
 }
 
@@ -23,21 +24,12 @@ export interface DeleteTasksAction {
     };
 }
 
-export interface EditTaskTitleAction {
-    type: TaskActionType.EDIT_TASK_TITLE;
-    payload: {
-        id: string;
-        title: string;
-    };
+export interface EditTaskAction {
+    type: TaskActionType.EDIT_TASK;
+    payload: Task;
 }
 
-export interface EditTaskDescriptionAction {
-    type: TaskActionType.EDIT_TASK_DESC;
-    payload: {
-        id: string;
-        description: string;
-    };
-}
+
 
 export interface EditTaskColumnAction {
     type: TaskActionType.EDIT_TASK_COLUMN;
@@ -95,8 +87,7 @@ export interface DeleteTaskInColumn {
 export type Action =
     | CreateTaskAction
     | DeleteTaskAction
-    | EditTaskTitleAction
-    | EditTaskDescriptionAction
+    | EditTaskAction
     | EditTaskColumnAction
     | DeleteTasksAction
     | CreateColumnTaskAction

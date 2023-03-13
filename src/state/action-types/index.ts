@@ -1,8 +1,7 @@
 export enum TaskActionType {
     CREATE_TASK = 'create_task',
     DELETE_TASK = 'delete_task',
-    EDIT_TASK_TITLE = 'edit_title',
-    EDIT_TASK_DESC = 'edit_desc',
+    EDIT_TASK = 'edit_task',
     EDIT_TASK_COLUMN = 'edit_task_column',
     DELETE_TASKS = 'delete_tasks',
 }

@@ -27,15 +27,12 @@ const reducer = produce((state: TasksState = initialState, action: Action) => {
                 columnId: action.payload.columnId,
                 type: action.payload.type,
                 description: action.payload.desc,
+                isImportant: action.payload.isImportant,
             };
             state.data[newTask.id] = newTask;
             return state;
-        case TaskActionType.EDIT_TASK_TITLE:
-            state.data[action.payload.id].title = action.payload.title;
-            return state;
-        case TaskActionType.EDIT_TASK_DESC:
-            state.data[action.payload.id].description =
-                action.payload.description;
+        case TaskActionType.EDIT_TASK:
+            state.data[action.payload.id] = action.payload;
             return state;
         case TaskActionType.EDIT_TASK_COLUMN:
             state.data[action.payload.id].columnId = action.payload.newColumnId;

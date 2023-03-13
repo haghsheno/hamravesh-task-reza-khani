@@ -4,4 +4,5 @@ interface Task {
     description?: string;
     type: 'easy'| 'hard';
     columnId: string;
+    isImportant: boolean
 }

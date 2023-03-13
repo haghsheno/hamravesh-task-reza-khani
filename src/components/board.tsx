@@ -1,8 +1,9 @@
+//@ts-nocheck
 import { useTypedSelector } from "../hooks/use-typed-selector";
 import { useEffect, useState } from "react";
 import TaskColumn from "./task-column";
 import AddNewColumn from "./add-new-column";
-import CurrentTaskModal from "./current-task-modal";
+import TaskModal from "./task-modal";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { useAction } from "../hooks/use-actions";
 import initialTasks from "../constant/tasks.json";
@@ -10,6 +11,7 @@ import initialTaskColumns from "../constant/taskColumns.json";
 const Board = () => {
   const [currentTask, setCurrentTask] = useState<Task | null>(null);
   const [isShowTaskModal, setIsShowTaskModal] = useState(false);
+  const [currentColumnId, setCurrentColumnId] = useState("");
 
   const tasks = useTypedSelector(({ tasks: { data } }) => data);
   const { data: taskColumnsObj, order } = useTypedSelector(
@@ -17,7 +19,7 @@ const Board = () => {
       return { data, order };
     }
   );
-  const { editColumnTasksOrder, editColumnTask, createColumn, createNewTask } =
+  const { editColumnTasksOrder, editColumnTask, createColumn, createTask } =
     useAction();
 
   const onDragEnd = (result: DropResult) => {
@@ -72,12 +74,14 @@ const Board = () => {
       if (!Object.keys(tasks).length && !Object.keys(taskColumnsObj).length) {
         console.log(initialTaskColumns);
         Object.keys(initialTaskColumns).map((id) =>
-          //@ts-ignore
           createColumn(initialTaskColumns[id].title, initialTaskColumns[id].id)
         );
         Object.keys(initialTasks).map((id) =>
-          //@ts-ignore
-          createNewTask( initialTasks[id].title, initialTasks[id].columnId, initialTasks[id].type, initialTasks[id].description
+        createTask(
+            initialTasks[id].title,
+            initialTasks[id].columnId,
+            initialTasks[id].type,
+            initialTasks[id].description
           )
         );
       }
@@ -108,20 +112,25 @@ const Board = () => {
                   setCurrentTask(task);
                   setIsShowTaskModal(true);
                 }}
+                onShowNewTaskModal={() => setIsShowTaskModal(true)}
+                setCurrentColumnId={setCurrentColumnId}
               />
             );
           })}
           <AddNewColumn />
         </div>
       </DragDropContext>
-      {currentTask && (
-        <CurrentTaskModal
-          isShowModal={isShowTaskModal}
-          taskId={currentTask?.id}
-          onCancel={() => setCurrentTask(null)}
-          setCurrentTask={setCurrentTask}
-        />
-      )}
+      <TaskModal
+        isShowModal={isShowTaskModal}
+        taskId={currentTask?.id}
+        onCancel={() => {
+          setCurrentTask(null);
+          setIsShowTaskModal(false);
+        }}
+        setCurrentTask={setCurrentTask}
+        key={currentTask?.id}
+        currentColumnId={currentColumnId}
+      />
     </>
   );
 };

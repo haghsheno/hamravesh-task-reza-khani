@@ -1,19 +1,22 @@
 import { Button, Input } from 'antd';
 import { Droppable } from 'react-beautiful-dnd';
 import { useAction } from '../hooks/use-actions';
-import AddNewTask from './add-new-task';
 import Task from './task';
 
 interface TaskColumnProps {
     taskList: Task[];
     taskColumn: TaskColumn;
     onTaskClick: (task: Task) => void;
+    onShowNewTaskModal: ()=> void;
+    setCurrentColumnId: (id: string)=>void
 }
 
 const TaskColumn: React.FC<TaskColumnProps> = ({
     taskList,
     taskColumn,
     onTaskClick,
+    onShowNewTaskModal,
+    setCurrentColumnId,
 }) => {
     const { deleteColumn, editColumnTitle } = useAction();
 
@@ -53,7 +56,9 @@ const TaskColumn: React.FC<TaskColumnProps> = ({
                             ></Task>
                         ))}
                         {provided.placeholder}
-                        <AddNewTask columnId={taskColumn.id} />
+                        <Button style={{ marginTop:'0.5rem'}} onClick={()=>{
+                            setCurrentColumnId(taskColumn.id)
+                            onShowNewTaskModal()}}>add a task</Button>
                     </div>
                 </div>
             )}
