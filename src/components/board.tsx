@@ -77,7 +77,7 @@ const Board = () => {
           createColumn(initialTaskColumns[id].title, initialTaskColumns[id].id)
         );
         Object.keys(initialTasks).map((id) =>
-        createTask(
+          createTask(
             initialTasks[id].title,
             initialTasks[id].columnId,
             initialTasks[id].type,
@@ -127,7 +127,6 @@ const Board = () => {
           setCurrentTask(null);
           setIsShowTaskModal(false);
         }}
-        setCurrentTask={setCurrentTask}
         key={currentTask?.id}
         currentColumnId={currentColumnId}
       />

@@ -1,13 +1,12 @@
-import { Button, Checkbox, Form, Input, Modal, Radio } from "antd";
+import { Button, Checkbox, Form, Input, Modal, Radio, Typography } from "antd";
+import React, { useState } from "react";
 import { useAction } from "../hooks/use-actions";
 import { useTypedSelector } from "../hooks/use-typed-selector";
 
-const { TextArea } = Input;
-
+const { Text } = Typography;
 interface TaskModalProps {
   taskId: string;
   onCancel: () => void;
-  setCurrentTask: React.Dispatch<React.SetStateAction<Task | null>>;
   isShowModal: boolean;
   currentColumnId?: string;
 }
@@ -15,14 +14,12 @@ interface TaskModalProps {
 const TaskModal: React.FC<TaskModalProps> = ({
   taskId,
   onCancel,
-  setCurrentTask,
   isShowModal,
   currentColumnId,
 }) => {
   const selecteTask = useTypedSelector((state) => state.tasks.data[taskId]);
-
   const { deleteTask, updateTask, createTask } = useAction();
-
+  const [desc, setDesc] = useState("");
   const initialValues = {
     title: selecteTask ? selecteTask.title : "",
     description: selecteTask ? selecteTask?.description : "",
@@ -36,7 +33,15 @@ const TaskModal: React.FC<TaskModalProps> = ({
     if (selecteTask) {
       updateTask({ ...selecteTask, ...form.getFieldsValue() });
     } else {
-      if (currentColumnId) {
+      if (
+        form.getFieldsValue().description &&
+        form.getFieldsValue().type === "easy"
+      ) {
+        form.resetFields();
+
+        return;
+      }
+      if (currentColumnId && form.getFieldsValue().title) {
         createTask(
           form.getFieldsValue().title,
           currentColumnId,
@@ -47,9 +52,6 @@ const TaskModal: React.FC<TaskModalProps> = ({
       }
     }
     onCancel();
-    console.log(form.getFieldsValue().description);
-    console.log(form.getFieldValue("description"));
-    console.log(form.getFieldsValue());
     form.resetFields();
   };
 
@@ -64,6 +66,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
       onCancel={() => {
         onCancel();
         form.resetFields();
+        setDesc('')
       }}
       closeIcon={<></>}
       footer={<></>}
@@ -85,14 +88,21 @@ const TaskModal: React.FC<TaskModalProps> = ({
         <Form.Item name="description" label="description">
           <Input.TextArea
             id="description"
+            onChange={(e) => setDesc(e.currentTarget.value)}
             disabled={selecteTask ? selecteTask?.type !== "hard" : false}
             style={{ alignSelf: "flex-end", outline: "none" }}
           ></Input.TextArea>
         </Form.Item>
-        <p>If you want add description this task should be hard</p>
+        {!selecteTask && desc && (
+          <Text type="warning">
+            If you want add description this task should be hard
+          </Text>
+        )}
 
         <Form.Item name="type" label="task type">
-          <Radio.Group disabled={selecteTask ? true : false}>
+          <Radio.Group
+            disabled={selecteTask ? true : false}
+          >
             <Radio value="easy">Easy</Radio>
             <Radio value="hard">Hard</Radio>
           </Radio.Group>
@@ -124,4 +134,4 @@ const TaskModal: React.FC<TaskModalProps> = ({
   );
 };
 
-export default TaskModal;
+export default React.memo(TaskModal);
