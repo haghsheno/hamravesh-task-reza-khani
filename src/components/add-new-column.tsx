@@ -1,6 +1,6 @@
 import { useAction } from "../hooks/use-actions";
 import { useState } from "react";
-import { Button, Input } from "antd";
+import { Button, Input, Typography } from "antd";
 import { randomId } from "../utils/generate-id";
 const AddNewColumn: React.FC = () => {
   const [title, setTitle] = useState("");
@@ -16,7 +16,7 @@ const AddNewColumn: React.FC = () => {
 
   return (
     <div style={{ minWidth: "200px", width: "200px" }}>
-      <label htmlFor="column-id">Add another Column</label>
+      <Typography.Text  >Add another Column</Typography.Text>
       <Input
         id="column-id"
         value={title}
