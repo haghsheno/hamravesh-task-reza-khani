@@ -23,7 +23,7 @@ const reducer = produce(
         switch (action.type) {
             case TaskColumnActionType.CREATE_COLUMN:
                 const newColumn: TaskColumn = {
-                    id: action.payload.id || randomId(),
+                    id: action.payload.id,
                     title: action.payload.title,
                     taskIds: [],
                 };
@@ -60,8 +60,5 @@ const reducer = produce(
     initialState
 );
 
-const randomId = () => {
-    return Math.random().toString(36).substring(2, 5);
-};
 
 export default reducer;

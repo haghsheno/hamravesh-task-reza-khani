@@ -4,6 +4,7 @@
         "title": "ssss",
         "columnId": "wbl",
         "type": "easy",
+        "isImportant" : false,
         "description": "fake description"
     },
     "5va": {
@@ -11,6 +12,7 @@
         "title": "tempt3",
         "columnId": "wbl",
         "type": "easy",
+        "isImportant" : true,
         "description": ""
     }
 }

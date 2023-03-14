@@ -24,7 +24,6 @@ const Board = () => {
 
   const onDragEnd = (result: DropResult) => {
     const { destination, source, draggableId } = result;
-
     if (!destination) {
       return;
     }
@@ -70,22 +69,21 @@ const Board = () => {
   };
 
   useEffect(() => {
-    return () => {
       if (!Object.keys(tasks).length && !Object.keys(taskColumnsObj).length) {
-        console.log(initialTaskColumns);
         Object.keys(initialTaskColumns).map((id) =>
-          createColumn(initialTaskColumns[id].title, initialTaskColumns[id].id)
+          createColumn(initialTaskColumns[id].id, initialTaskColumns[id].title)
         );
         Object.keys(initialTasks).map((id) =>
           createTask(
+            initialTasks[id].id,
             initialTasks[id].title,
             initialTasks[id].columnId,
             initialTasks[id].type,
-            initialTasks[id].description
+            initialTasks[id].isImportant,
+            initialTasks[id].description,
           )
         );
       }
-    };
   }, []);
 
   return (

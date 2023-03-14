@@ -19,7 +19,7 @@ const Task: React.FC<TaskProps> = ({ task, onClick, index }) => {
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                     >
-                        {task.description}
+                        {task?.description}
                     </Card>
                 )}
             </Draggable>

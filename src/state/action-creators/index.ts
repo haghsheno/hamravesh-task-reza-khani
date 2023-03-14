@@ -13,8 +13,8 @@ import {
 import { RootState } from "../reducers";
 
 export const createColumn = (
-  title: string,
-  id?: string
+  id: string,
+  title: string
 ): CreateColumnTaskAction => {
   return {
     type: TaskColumnActionType.CREATE_COLUMN,
@@ -59,6 +59,7 @@ export const deleteColumn = (column: TaskColumn) => {
 };
 
 export const createTask = (
+  taskId :string,
   title: string,
   columnId: string,
   type: "easy" | "hard",
@@ -69,6 +70,7 @@ export const createTask = (
     dispatch({
       type: TaskActionType.CREATE_TASK,
       payload: {
+        id : taskId,
         title,
         columnId,
         type,

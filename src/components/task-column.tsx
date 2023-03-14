@@ -26,7 +26,7 @@ const TaskColumn: React.FC<TaskColumnProps> = ({
         }
         editColumnTitle(taskColumn.id, title);
     };
-
+    console.log({taskList, taskColumn})
     return (
         <Droppable droppableId={taskColumn.id}>
             {(provided, snapshot) => (

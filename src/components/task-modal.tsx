@@ -2,6 +2,7 @@ import { Button, Checkbox, Form, Input, Modal, Radio, Typography } from "antd";
 import React, { useState } from "react";
 import { useAction } from "../hooks/use-actions";
 import { useTypedSelector } from "../hooks/use-typed-selector";
+import { randomId } from "../utils/generate-id";
 
 const { Text } = Typography;
 interface TaskModalProps {
@@ -33,21 +34,14 @@ const TaskModal: React.FC<TaskModalProps> = ({
     if (selecteTask) {
       updateTask({ ...selecteTask, ...form.getFieldsValue() });
     } else {
-      if (
-        form.getFieldsValue().description &&
-        form.getFieldsValue().type === "easy"
-      ) {
-        form.resetFields();
-
-        return;
-      }
       if (currentColumnId && form.getFieldsValue().title) {
         createTask(
+          randomId(),
           form.getFieldsValue().title,
           currentColumnId,
           form.getFieldsValue().type,
+          form.getFieldsValue().isImportant,
           form.getFieldsValue().description,
-          form.getFieldsValue().isImportant
         );
       }
     }

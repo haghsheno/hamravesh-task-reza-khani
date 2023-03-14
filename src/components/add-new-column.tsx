@@ -1,6 +1,7 @@
 import { useAction } from "../hooks/use-actions";
 import { useState } from "react";
 import { Button, Input } from "antd";
+import { randomId } from "../utils/generate-id";
 const AddNewColumn: React.FC = () => {
   const [title, setTitle] = useState("");
 
@@ -8,7 +9,7 @@ const AddNewColumn: React.FC = () => {
 
   const createNewColumn = () => {
     if (title) {
-      createColumn(title);
+      createColumn(randomId(), title );
       setTitle("");
     }
   };
